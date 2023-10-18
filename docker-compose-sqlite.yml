@@ -1,0 +1,11 @@
+version: '3.8' #recentste
+
+services:
+  webapp: #image
+    build: #rebuild in geval van wijzigingen
+      context: . #zoek dockerfile in huidige directory
+      dockerfile: Dockerfile #naam vd file
+    ports:
+      - "3000:3000" #port
+    volumes:
+      - /vagrant/webapp/database:/app/database #map database folder van container naar locatie op host

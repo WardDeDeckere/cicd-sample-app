@@ -1,0 +1,34 @@
+version: '3.8' #recentste
+
+services:
+  webapp: #image
+    build: #rebuild in geval van wijzigingen
+      context: . #zoek dockerfile in huidige directory
+      dockerfile: Dockerfile #naam vd file
+    ports:
+      - "3000:3000" #port
+    volumes:
+      - /vagrant/webapp/database:/app/database #map database folder van container naar locatie op host
+    environment:
+      - MONGO_URL=mongodb://database:27017/webapp #env variabele om mongodb service te gebruiken
+    depends_on:
+      - database #maken dat database service start voor webapp service
+    
+  database: #nieuwe container
+    image: mongo:4.4 #kan niet latest, want AVX CPU nodig
+    volumes:
+      - mongodb_data:/data/db
+  
+  test: # New test service
+    build:
+      context: . #zelfde als webapp
+      dockerfile: Dockerfile #zelfde als webapp
+    command: yarn test # Override default commando uit dockerfile
+    environment:
+      - API_URL=http://webapp:3000 #verwijzen naar webapp service
+    depends_on: #eerst webapp en database services starten
+      - webapp
+      - database
+  
+volumes: #named volumes
+  mongodb_data: #placeholder zodat je weet dat volume gedefinieerd is, maar geen specifieke configuratie heeft

@@ -1,0 +1,5 @@
+#zorg dat onnodige files niet gebuild worden
+node_modules/
+Dockerfile
+docker-compose.yml
+*.dockerignore
