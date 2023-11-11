@@ -22,3 +22,11 @@ jobs:
 
       - name: Lint
         run: yarn lint
+
+      - name: Build Docker Image
+        uses: docker/build-push-action@v3
+        with:
+          context: .
+          file: ./Dockerfile
+          tags: your-docker-hub-username/webapp:latest
+          push: false
