@@ -28,5 +28,5 @@ jobs:
         with:
           context: .
           file: ./Dockerfile
-          tags: your-docker-hub-username/webapp:latest
+          tags: warddd/webapp:latest
           push: false
