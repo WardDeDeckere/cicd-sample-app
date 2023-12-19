@@ -35,4 +35,4 @@ jobs:
           context: .
           file: ./Dockerfile
           tags: warddd/webapp:latest
-          push: true
+          push: false
